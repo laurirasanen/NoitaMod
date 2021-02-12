@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaMod.Memory", "NoitaMod.Memory\NoitaMod.Memory.csproj", "{23523A1C-286F-43E4-9A3B-600B306A2895}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaMod.API", "NoitaMod.API\NoitaMod.API.csproj", "{C60BFCB1-AFDE-470C-9D4C-7D5EEB21E629}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaMod", "NoitaMod\NoitaMod.csproj", "{B49FCC78-78AA-4439-9E3B-DD95CEA26386}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaMod.Core", "NoitaMod.Core\NoitaMod.Core.csproj", "{7C76A8A0-92F9-4A8C-9A01-4C68F53D3D1E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoitaMod.Log", "NoitaMod.Logger\NoitaMod.Log.csproj", "{3F3D4B01-BF76-43AB-8781-74A87BE364EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23523A1C-286F-43E4-9A3B-600B306A2895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23523A1C-286F-43E4-9A3B-600B306A2895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23523A1C-286F-43E4-9A3B-600B306A2895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23523A1C-286F-43E4-9A3B-600B306A2895}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C60BFCB1-AFDE-470C-9D4C-7D5EEB21E629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C60BFCB1-AFDE-470C-9D4C-7D5EEB21E629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C60BFCB1-AFDE-470C-9D4C-7D5EEB21E629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C60BFCB1-AFDE-470C-9D4C-7D5EEB21E629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B49FCC78-78AA-4439-9E3B-DD95CEA26386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B49FCC78-78AA-4439-9E3B-DD95CEA26386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B49FCC78-78AA-4439-9E3B-DD95CEA26386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B49FCC78-78AA-4439-9E3B-DD95CEA26386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C76A8A0-92F9-4A8C-9A01-4C68F53D3D1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C76A8A0-92F9-4A8C-9A01-4C68F53D3D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C76A8A0-92F9-4A8C-9A01-4C68F53D3D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C76A8A0-92F9-4A8C-9A01-4C68F53D3D1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F3D4B01-BF76-43AB-8781-74A87BE364EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F3D4B01-BF76-43AB-8781-74A87BE364EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F3D4B01-BF76-43AB-8781-74A87BE364EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F3D4B01-BF76-43AB-8781-74A87BE364EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDB34EE0-2C19-43F9-920D-FE9CCB4A55D6}
+	EndGlobalSection
+EndGlobal

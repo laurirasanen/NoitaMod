@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UnmanagedExports" Version="1.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NoitaMod.API\NoitaMod.API.csproj" />
+    <ProjectReference Include="..\NoitaMod.Logger\NoitaMod.Log.csproj" />
+    <ProjectReference Include="..\NoitaMod.Memory\NoitaMod.Memory.csproj" />
+  </ItemGroup>
+
+</Project>
