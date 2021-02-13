@@ -101,10 +101,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NoitaMod.API\NoitaMod.API.csproj">
-      <Project>{cd6c3a05-f25a-42c7-8435-cfb7d7aa6390}</Project>
-      <Name>NoitaMod.API</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NoitaMod.Log\NoitaMod.Log.csproj">
       <Project>{0d39aa0a-2729-4570-9b4c-0b60d9854afa}</Project>
       <Name>NoitaMod.Log</Name>

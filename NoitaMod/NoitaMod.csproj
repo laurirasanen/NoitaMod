@@ -95,10 +95,6 @@
     <EmbeddedResource Include="NoitaModForm.resx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NoitaMod.API\NoitaMod.API.csproj">
-      <Project>{cd6c3a05-f25a-42c7-8435-cfb7d7aa6390}</Project>
-      <Name>NoitaMod.API</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NoitaMod.Core\NoitaMod.Core.csproj">
       <Project>{c4cdc016-791a-49cc-bfc2-a8744821bf13}</Project>
       <Name>NoitaMod.Core</Name>
