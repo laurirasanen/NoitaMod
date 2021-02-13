@@ -27,7 +27,8 @@ namespace NoitaMod.Log
             }
         }
 
-        static string logPath = "noitamod.log";
+        static string defaultLogPath = "noitamod.log";
+        string logPath = defaultLogPath;
         static string dateFormat = "yyyy-MM-dd HH:mm:ss.ff";
         FileStream logStream;
         StreamWriter logWriter;
@@ -38,7 +39,7 @@ namespace NoitaMod.Log
             {
                 if ( logStream == null )
                 {
-                    logStream = new FileStream( logPath, FileMode.Create );
+                    logStream = new FileStream( logPath, FileMode.OpenOrCreate, FileAccess.Write );
                     logWriter = new StreamWriter( logStream );
                     logWriter.AutoFlush = true;
                 }
@@ -55,19 +56,45 @@ namespace NoitaMod.Log
 
         public void Dispose()
         {
+            Close();
+
+            instance = null;
+        }
+
+        private void Close()
+        {
             if ( logWriter != null )
             {
                 logWriter.Flush();
                 logWriter.Dispose();
+                logWriter.Close();
+                logWriter = null;
             }
 
             if ( logStream != null )
             {
-                logStream.Flush();
+                if ( logStream.CanWrite )
+                {
+                    logStream.Flush();
+                }
                 logStream.Dispose();
+                logStream.Close();
+                logStream = null;
             }
+        }
 
-            instance = null;
+        public void DeleteLog()
+        {
+            Close();
+            if ( File.Exists( logPath ) )
+            {
+                File.Delete( logPath );
+            }
+        }
+
+        public void SetLogPath( string logPath )
+        {
+            this.logPath = logPath;
         }
     }
 }

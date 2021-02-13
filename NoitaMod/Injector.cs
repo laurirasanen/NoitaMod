@@ -62,7 +62,7 @@ namespace NoitaMod
 
         private Injector() { }
 
-        public DLLInjectionResult Inject( string processName, string dllPath )
+        public DLLInjectionResult Inject( string processName, string dllPath, string functionToCall = "" )
         {
             if ( !File.Exists( dllPath ) )
             {
@@ -85,7 +85,7 @@ namespace NoitaMod
                 return DLLInjectionResult.GAME_PROCESS_NOT_FOUND;
             }
 
-            if ( !injectDLL( processId, dllPath ) )
+            if ( !injectDLL( processId, dllPath, functionToCall ) )
             {
                 return DLLInjectionResult.INJECTION_FAILED;
             }
@@ -93,7 +93,7 @@ namespace NoitaMod
             return DLLInjectionResult.SUCCESS;
         }
 
-        bool injectDLL( uint processToInject, string dllPath )
+        bool injectDLL( uint processToInject, string dllPath, string functionToCall = "" )
         {
             IntPtr processHandle = OpenProcess(desiredAccess, 1, processToInject);
             if ( processHandle == INTPTR_ZERO )
@@ -142,8 +142,21 @@ namespace NoitaMod
 
             Logger.Instance.WriteLine( $"Module address: {moduleAddress}" );
 
+            if ( functionToCall.Length == 0 )
+            {
+                CloseHandle( processHandle );
+                return true;
+            }
+
+            Process noitaProcess = Process.GetProcessesByName("noita")[0];
+            Logger.Instance.WriteLine( "noita.exe modules:" );
+            foreach ( ProcessModule m in noitaProcess.Modules )
+            {
+                Logger.Instance.WriteLine( $"  {m.ModuleName}" );
+            }
+
             var lib = LoadLibrary(dllPath);
-            IntPtr entryAddress = GetProcAddress(lib, "Entry");
+            IntPtr entryAddress = GetProcAddress(lib, functionToCall);
             if ( entryAddress == INTPTR_ZERO )
             {
                 Logger.Instance.WriteLine( "Failed to find Entry address" );
@@ -153,7 +166,7 @@ namespace NoitaMod
             IntPtr moduleBase = INTPTR_ZERO;
             foreach ( ProcessModule m in proc.Modules )
             {
-                if ( m.ModuleName == "NoitaMod.Core.dll" )
+                if ( dllPath.Contains( m.ModuleName ) )
                 {
                     moduleBase = m.BaseAddress;
                     break;
@@ -172,10 +185,12 @@ namespace NoitaMod
             {
                 return false;
             }
+
             WaitForSingleObject( entryResult, unchecked(( uint )-1) );
             uint result = 0;
             GetExitCodeThread( entryResult, out result );
             Logger.Instance.WriteLine( $"result {result}" );
+
 
             CloseHandle( processHandle );
             return true;

@@ -23,6 +23,7 @@ namespace NoitaMod
         Boolean isInjected = false;
         Boolean startedAfterMod = false;
         bool injectNextTick = false;
+        bool isInjecting = false;
 
         private String injectionStatus = "";
         private System.Timers.Timer processCheckTimer;
@@ -43,29 +44,56 @@ namespace NoitaMod
 
         void injectDLL()
         {
-            Logger.Instance.WriteLine( "NoitaModForm.injectDLL()" );
-            DLLInjectionResult result = Injector.Instance.Inject(processName, $@"{Directory.GetCurrentDirectory()}\NoitaMod.Core.dll");
-            switch ( result )
+            if ( isInjecting )
             {
-                case DLLInjectionResult.DLL_NOT_FOUND:
-                    InjectionStatus = StatusStrings.INSTALLATION_WRONG;
-                    break;
-                case DLLInjectionResult.GAME_PROCESS_NOT_FOUND:
-                    InjectionStatus = StatusStrings.PROCESS_NOT_ACTIVE;
-                    break;
-                case DLLInjectionResult.INJECTION_FAILED:
-                    InjectionStatus = StatusStrings.INJECTION_FAILED;
-                    break;
-                case DLLInjectionResult.SUCCESS:
-                    InjectionStatus = StatusStrings.INJECTED;
-                    isInjected = true;
-                    break;
+                return;
             }
-            Logger.Instance.WriteLine( $"NoitaModForm.injectDLL result {result}" );
+
+            isInjecting = true;
+
+            Logger.Instance.WriteLine( "NoitaModForm.injectDLL()" );
+            var Dlls = new string[][]{
+                //new string[]{ $@"{Directory.GetCurrentDirectory()}\NoitaMod.Log.dll"},
+                //new string[]{ $@"{Directory.GetCurrentDirectory()}\NoitaMod.API.dll"},
+                //new string[]{ $@"{Directory.GetCurrentDirectory()}\NoitaMod.Memory.dll"},
+                new string[]{ $@"{Directory.GetCurrentDirectory()}\NoitaMod.Core.dll", "Entry"},
+            };
+
+            for ( int i = 0; i < Dlls.Length; i++ )
+            {
+                DLLInjectionResult result = Injector.Instance.Inject(processName, Dlls[i][0], Dlls[i].Length > 1 ? Dlls[i][1] : "");
+                if ( i == Dlls.Length - 1 )
+                {
+                    switch ( result )
+                    {
+                        case DLLInjectionResult.DLL_NOT_FOUND:
+                            InjectionStatus = StatusStrings.INSTALLATION_WRONG;
+                            break;
+                        case DLLInjectionResult.GAME_PROCESS_NOT_FOUND:
+                            InjectionStatus = StatusStrings.PROCESS_NOT_ACTIVE;
+                            break;
+                        case DLLInjectionResult.INJECTION_FAILED:
+                            InjectionStatus = StatusStrings.INJECTION_FAILED;
+                            break;
+                        case DLLInjectionResult.SUCCESS:
+                            InjectionStatus = StatusStrings.INJECTED;
+                            isInjected = true;
+                            break;
+                    }
+                }
+                Logger.Instance.WriteLine( $"NoitaModForm.injectDLL {Dlls[i][0]} {result}" );
+            }
+
+            isInjecting = false;
         }
 
         private void doInjections()
         {
+            if ( isInjecting )
+            {
+                return;
+            }
+
             bool isRunning = Process.GetProcessesByName(processName).Length > 0;
             if ( injectNextTick )
             {
@@ -105,6 +133,8 @@ namespace NoitaMod
 
         public NoitaModForm()
         {
+            Logger.Instance.SetLogPath( "noitamod-injector.log" );
+            Logger.Instance.DeleteLog();
             Logger.Instance.WriteLine( "NoitaModForm.NoitaModForm()" );
             InitializeComponent();
         }
