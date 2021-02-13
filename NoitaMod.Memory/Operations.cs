@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace NoitaMod.Memory
@@ -13,20 +14,36 @@ namespace NoitaMod.Memory
         [DllImport( "kernel32", SetLastError = true )]
         public static extern bool WriteProcessMemory( int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int loNumberOfBytesRead );
 
-        public static uint Read( IntPtr address )
+        public static int Read( ulong address, byte[] buffer, int size )
         {
-            byte[] dataBuffer = new byte[4];
-            int bytesRead = 0;
-            ReadProcessMemory( ( int )Handles.Process, ( int )address, dataBuffer, dataBuffer.Length, ref bytesRead );
-            return BitConverter.ToUInt32( dataBuffer, 0 );
+            return Read( ( IntPtr )address, buffer, size );
         }
 
-        public static bool Write( IntPtr address, uint value )
+        public static int Read( IntPtr address, byte[] buffer, int size )
         {
-            byte[] dataBuffer = BitConverter.GetBytes(value);
+            if ( size > buffer.Length )
+            {
+                throw new InvalidOperationException();
+            }
+            int bytesRead = 0;
+            ReadProcessMemory( ( int )Handles.Process, ( int )address, buffer, size, ref bytesRead );
+            return bytesRead;
+        }
+
+        public static int Write( IntPtr address, byte[] buffer, int size )
+        {
+            if ( size > buffer.Length )
+            {
+                throw new InvalidOperationException();
+            }
             int bytesWritten = 0;
-            WriteProcessMemory( ( int )Handles.Process, ( int )address, dataBuffer, dataBuffer.Length, ref bytesWritten );
-            return true;
+            WriteProcessMemory( ( int )Handles.Process, ( int )address, buffer, size, ref bytesWritten );
+            return bytesWritten;
+        }
+
+        public static ProcessModuleCollection GetProcessModules()
+        {
+            return Process.GetCurrentProcess().Modules;
         }
     }
 }

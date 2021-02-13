@@ -148,13 +148,6 @@ namespace NoitaMod
                 return true;
             }
 
-            Process noitaProcess = Process.GetProcessesByName("noita")[0];
-            Logger.Instance.WriteLine( "noita.exe modules:" );
-            foreach ( ProcessModule m in noitaProcess.Modules )
-            {
-                Logger.Instance.WriteLine( $"  {m.ModuleName}" );
-            }
-
             var lib = LoadLibrary(dllPath);
             IntPtr entryAddress = GetProcAddress(lib, functionToCall);
             if ( entryAddress == INTPTR_ZERO )
@@ -191,6 +184,12 @@ namespace NoitaMod
             GetExitCodeThread( entryResult, out result );
             Logger.Instance.WriteLine( $"result {result}" );
 
+            Process noitaProcess = Process.GetProcessesByName("noita")[0];
+            Logger.Instance.WriteLine( "noita.exe modules:" );
+            foreach ( ProcessModule m in noitaProcess.Modules )
+            {
+                Logger.Instance.WriteLine( $"  {m.ModuleName}" );
+            }
 
             CloseHandle( processHandle );
             return true;

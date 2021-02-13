@@ -82,6 +82,7 @@
     <Compile Include="Hook.cs" />
     <Compile Include="Operations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scanner.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NoitaMod.Log\NoitaMod.Log.csproj">
