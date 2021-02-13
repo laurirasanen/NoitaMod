@@ -10,7 +10,31 @@ namespace NoitaMod.Core
         [DllExport]
         public static void Entry()
         {
-            Logger.Instance.WriteLine( "NoitaMod.Core.Entry()" );
+            try
+            {
+                Init();
+            }
+            catch ( Exception ex )
+            {
+                if ( !EventLog.SourceExists( "NoitaMod" ) )
+                {
+                    EventLog.CreateEventSource( "NoitaMod", "NoitaModLog" );
+                }
+
+                var eventLog = new EventLog();
+                eventLog.Source = "NoitaMod";
+                eventLog.Log = "NoitaModLog";
+                eventLog.WriteEntry( ex.Message, EventLogEntryType.Error );
+                eventLog.WriteEntry( ex.StackTrace, EventLogEntryType.Error );
+
+                throw ( ex ); // crash
+            }
+        }
+
+        private static void Init()
+        {
+            Logger.Instance.DeleteLog();
+            Logger.Instance.WriteLine( "NoitaMod.Core.Init()" );
 
             Process process = Process.GetCurrentProcess();
             process.EnableRaisingEvents = true;
