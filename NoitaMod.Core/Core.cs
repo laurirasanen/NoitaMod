@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using NoitaMod.Log;
+using NoitaMod.Memory;
 
 namespace NoitaMod.Core
 {
@@ -19,7 +20,7 @@ namespace NoitaMod.Core
                 Logger.Instance.Dispose();
             };
 
-            Memory.Handles.Init( process.Handle );
+            Handles.Init( process.Handle );
         }
     }
 }

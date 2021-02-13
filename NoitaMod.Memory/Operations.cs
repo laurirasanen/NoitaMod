@@ -13,7 +13,6 @@ namespace NoitaMod.Memory
         [DllImport( "kernel32", SetLastError = true )]
         public static extern bool WriteProcessMemory( int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int loNumberOfBytesRead );
 
-
         public static uint Read( IntPtr address )
         {
             byte[] dataBuffer = new byte[4];

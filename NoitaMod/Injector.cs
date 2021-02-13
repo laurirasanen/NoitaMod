@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Linq;
 using NoitaMod.Log;
 
 namespace NoitaMod
@@ -29,16 +31,31 @@ namespace NoitaMod
             IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId );
 
         [DllImport( "kernel32.dll", SetLastError = true )]
+        static extern uint WaitForSingleObject( IntPtr hHandle, uint dwMilliseconds );
+
+        [DllImport( "kernel32.dll", SetLastError = true )]
         static extern IntPtr VirtualAllocEx( IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, uint flAllocationType, uint flProtect );
 
         [DllImport( "kernel32.dll", SetLastError = true )]
         static extern IntPtr GetModuleHandle( string lpModuleName );
 
         [DllImport( "kernel32.dll", SetLastError = true )]
+        static extern bool GetExitCodeThread( IntPtr hThread, out uint lpExitCode );
+
+        [DllImport( "kernel32.dll", SetLastError = true )]
         static extern IntPtr OpenProcess( uint dwDesiredAccess, int bInheritHandle, uint dwProcessId );
+
+        [DllImport( "kernel32", SetLastError = true, CharSet = CharSet.Ansi )]
+        static extern IntPtr LoadLibrary( [MarshalAs( UnmanagedType.LPStr )] string lpFileName );
 
         [DllImport( "kernel32.dll", SetLastError = true )]
         static extern int CloseHandle( IntPtr hObject );
+
+        [DllImport( "kernel32.dll", SetLastError = true )]
+        static extern bool SetCurrentDirectory( string lpPathName );
+
+        [DllImport( "kernel32.dll" )]
+        static extern uint GetCurrentDirectory( uint nBufferLength, [Out] StringBuilder lpBuffer );
 
         static readonly IntPtr INTPTR_ZERO = IntPtr.Zero;
         static readonly uint desiredAccess = (0x2 | 0x8 | 0x10 | 0x20 | 0x400);
@@ -79,7 +96,6 @@ namespace NoitaMod
         bool injectDLL( uint processToInject, string dllPath )
         {
             IntPtr processHandle = OpenProcess(desiredAccess, 1, processToInject);
-
             if ( processHandle == INTPTR_ZERO )
             {
                 return false;
@@ -113,22 +129,53 @@ namespace NoitaMod
                 return false;
             }
 
-            Logger.Instance.WriteLine( $"Injected to handle {moduleHandle}" );
+            WaitForSingleObject( moduleHandle, unchecked(( uint )-1) );
 
-            IntPtr entryAddress = GetProcAddress(GetModuleHandle(dllPath), "Entry");
-            if ( entryAddress == INTPTR_ZERO )
+            uint moduleAddress;
+            GetExitCodeThread( moduleHandle, out moduleAddress );
+
+            if ( moduleAddress == 0 )
             {
-                Logger.Instance.WriteLine( $"Failed to find Entry address" );
+                Logger.Instance.WriteLine( "Failed to get thread exit code / module address" );
                 return false;
             }
 
-            Logger.Instance.WriteLine( $"Entry address {entryAddress}" );
+            Logger.Instance.WriteLine( $"Module address: {moduleAddress}" );
 
-            IntPtr entryResult = CreateRemoteThread( processHandle, ( IntPtr )null, INTPTR_ZERO, moduleHandle, /*(IntPtr)null*/entryAddress, 0, ( IntPtr )null );
+            var lib = LoadLibrary(dllPath);
+            IntPtr entryAddress = GetProcAddress(lib, "Entry");
+            if ( entryAddress == INTPTR_ZERO )
+            {
+                Logger.Instance.WriteLine( "Failed to find Entry address" );
+                return false;
+            }
+            Process proc = Process.GetCurrentProcess();
+            IntPtr moduleBase = INTPTR_ZERO;
+            foreach ( ProcessModule m in proc.Modules )
+            {
+                if ( m.ModuleName == "NoitaMod.Core.dll" )
+                {
+                    moduleBase = m.BaseAddress;
+                    break;
+                }
+            }
+
+            IntPtr entryOffset = ( IntPtr )( ( ulong )entryAddress - ( ulong )moduleBase );
+            Logger.Instance.WriteLine( $"entryOffset {entryOffset}" );
+
+            entryAddress = ( IntPtr )( ( ulong )moduleAddress + ( ulong )entryOffset );
+            Logger.Instance.WriteLine( $"Entry {entryAddress}" );
+
+            IntPtr entryResult = CreateRemoteThread( processHandle, ( IntPtr )null, INTPTR_ZERO, entryAddress, (IntPtr)null, 0, ( IntPtr )null );
+
             if ( entryResult == INTPTR_ZERO )
             {
                 return false;
             }
+            WaitForSingleObject( entryResult, unchecked(( uint )-1) );
+            uint result = 0;
+            GetExitCodeThread( entryResult, out result );
+            Logger.Instance.WriteLine( $"result {result}" );
 
             CloseHandle( processHandle );
             return true;

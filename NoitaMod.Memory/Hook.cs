@@ -62,9 +62,5 @@ namespace NoitaMod.Memory
             Protection x;
             VirtualProtect( addr, nBytes, old, out x );
         }
-
-
-
-
     }
 }

@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Timers;
 using NoitaMod.Log;
+using System.IO;
 
 namespace NoitaMod
 {
@@ -43,7 +44,7 @@ namespace NoitaMod
         void injectDLL()
         {
             Logger.Instance.WriteLine( "NoitaModForm.injectDLL()" );
-            DLLInjectionResult result = Injector.Instance.Inject(processName, @"NoitaMod.Core.dll");
+            DLLInjectionResult result = Injector.Instance.Inject(processName, $@"{Directory.GetCurrentDirectory()}\NoitaMod.Core.dll");
             switch ( result )
             {
                 case DLLInjectionResult.DLL_NOT_FOUND:
@@ -72,12 +73,10 @@ namespace NoitaMod
                 Process process = Process.GetProcessesByName(processName).First();
                 if ( !process.Responding )
                 {
-                    processCheckTimer.Interval = 3000;
                     return;
                 }
                 injectDLL();
                 injectNextTick = false;
-                processCheckTimer.Interval = 2000;
             }
             else if ( isRunning )
             {
@@ -86,7 +85,6 @@ namespace NoitaMod
                     if ( startedAfterMod )
                     {
                         // Give a few seconds for game to start
-                        processCheckTimer.Interval = 3000;
                         injectNextTick = true;
                         InjectionStatus = StatusStrings.WAITING_FOR_LOAD;
 
