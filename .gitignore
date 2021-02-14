@@ -3,3 +3,6 @@
 */obj
 *.user
 packages/
+
+samples/*/bin
+samples/*/obj
