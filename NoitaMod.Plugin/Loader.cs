@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using NoitaMod.Log;
 using NoitaMod.Util;
+using NoitaMod.Common;
 
 namespace NoitaMod.Plugin
 {
     public class Loader : Singleton<Loader>, IDisposable
     {
         List<IPlugin> plugins;
-        AppDomain appDomain;
         string pluginsFolder;
         List<string> assemblies;
 
@@ -22,7 +22,6 @@ namespace NoitaMod.Plugin
             Logger.Instance.WriteLine( "NoitaMod.Plugin.Loader.Init()" );
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ReflectionOnlyAssemblyResolve;
-            appDomain = AppDomain.CreateDomain( "plugins container" );
 
             pluginsFolder = Directory.GetCurrentDirectory() + @"\NoitaMod\plugins";
 
@@ -49,6 +48,8 @@ namespace NoitaMod.Plugin
                         }
                     }
                 }
+
+                throw ex;
             }
         }
 
@@ -59,7 +60,6 @@ namespace NoitaMod.Plugin
                 Logger.Instance.WriteLine( $"IPlugin.OnUnload: {plugin.PluginInfo.Name}" );
                 plugin.OnUnload();
             } );
-            AppDomain.Unload( appDomain );
         }
 
         void LoadPlugins()
@@ -79,30 +79,42 @@ namespace NoitaMod.Plugin
 
             foreach ( var assembly in assemblies.Select( Assembly.ReflectionOnlyLoadFrom ) )
             {
+                var valid = false;
+
                 foreach ( var type in assembly.DefinedTypes )
                 {
                     if ( IsValidType( type ) )
                     {
+                        valid = true;
                         Logger.Instance.WriteLine( $"Creating instance of assembly {assembly.GetName()}" );
-                        var plugin = appDomain.CreateInstanceFromAndUnwrap(assembly.Location, type.FullName) as IPlugin;
+                        var plugin = AppDomain.CurrentDomain.CreateInstanceFromAndUnwrap(assembly.Location, type.FullName) as IPlugin;
                         plugins.Add( plugin );
                     }
+                }
+
+                if ( !valid )
+                {
+                    Logger.Instance.WriteLine( $"No valid IPlugin implementation found | {assembly.GetName()}", LogLevel.Error );
                 }
             }
 
             plugins.ForEach( plugin =>
             {
-                Logger.Instance.WriteLine( $"IPlugin.OnLoad: {plugin.PluginInfo.Name}" );
-                plugin.OnLoad();
+                Logger.Instance.WriteLine( $"IPlugin.OnLoad(): {plugin.PluginInfo.Name}" );
+                plugin.OnLoad( Logger.Instance );
             } );
+
+            if ( plugins.Count == 0 )
+            {
+                Logger.Instance.WriteLine( "No plugin instances" );
+            }
         }
 
         static bool IsValidType( TypeInfo type )
         {
             return type.IsClass &&
                 !type.IsAbstract &&
-                type.ImplementedInterfaces.Any( i => i.GUID == typeof( IPlugin ).GUID &&
-                type.BaseType == typeof( MarshalByRefObject ) );
+                type.ImplementedInterfaces.Any( i => i.GUID == typeof( IPlugin ).GUID );
         }
 
         private static Assembly ReflectionOnlyAssemblyResolve( object sender, ResolveEventArgs args )

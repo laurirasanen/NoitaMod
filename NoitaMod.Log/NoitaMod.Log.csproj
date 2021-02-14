@@ -82,6 +82,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NoitaMod.Common\NoitaMod.Common.csproj">
+      <Project>{5817d246-5f8e-4c71-bc26-1853cfe44f49}</Project>
+      <Name>NoitaMod.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NoitaMod.Util\NoitaMod.Util.csproj">
       <Project>{53093ae1-9ec0-4811-bbd2-125a51bf852a}</Project>
       <Name>NoitaMod.Util</Name>

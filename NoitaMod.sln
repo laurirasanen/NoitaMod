@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaMod.Plugin", "NoitaMod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaMod.Util", "NoitaMod.Util\NoitaMod.Util.csproj", "{53093AE1-9EC0-4811-BBD2-125A51BF852A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaMod.Common", "NoitaMod.Common\NoitaMod.Common.csproj", "{5817D246-5F8E-4C71-BC26-1853CFE44F49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,8 +85,8 @@ Global
 		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|x64.Build.0 = Debug|Any CPU
-		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|x86.Build.0 = Debug|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|x86.ActiveCfg = Debug|x86
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|x86.Build.0 = Debug|x86
 		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Release|x64.ActiveCfg = Release|Any CPU
@@ -95,14 +97,26 @@ Global
 		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|x64.Build.0 = Debug|Any CPU
-		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|x86.Build.0 = Debug|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|x86.ActiveCfg = Debug|x86
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|x86.Build.0 = Debug|x86
 		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|x64.ActiveCfg = Release|Any CPU
 		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|x64.Build.0 = Release|Any CPU
 		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|x86.ActiveCfg = Release|Any CPU
 		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|x86.Build.0 = Release|Any CPU
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Debug|x64.Build.0 = Debug|Any CPU
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Debug|x86.ActiveCfg = Debug|x86
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Debug|x86.Build.0 = Debug|x86
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Release|x64.ActiveCfg = Release|Any CPU
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Release|x64.Build.0 = Release|Any CPU
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Release|x86.ActiveCfg = Release|Any CPU
+		{5817D246-5F8E-4C71-BC26-1853CFE44F49}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

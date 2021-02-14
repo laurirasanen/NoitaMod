@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NoitaMod.Plugin
+namespace NoitaMod.Common
 {
     public struct PluginInfo
     {
@@ -15,7 +15,7 @@ namespace NoitaMod.Plugin
     {
         PluginInfo PluginInfo { get; set; }
 
-        void OnLoad();
+        void OnLoad(ILogger logger);
 
         void OnUnload();
     }

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using NoitaMod.Log;
 using NoitaMod.Memory;
 using NoitaMod.Plugin;
+using NoitaMod.Common;
 
 namespace NoitaMod.Core
 {
@@ -17,6 +18,18 @@ namespace NoitaMod.Core
             }
             catch ( Exception ex )
             {
+                // NoitaMod.Log may not be loaded
+                try
+                {
+                    Logger.Instance.WriteLine( ex.Message, LogLevel.Error );
+                    Logger.Instance.WriteLine( ex.StackTrace, LogLevel.Error );
+                }
+                catch ( Exception )
+                {
+                    // ignore
+                }
+
+                // Log to EventLog
                 if ( !EventLog.SourceExists( "NoitaMod" ) )
                 {
                     EventLog.CreateEventSource( "NoitaMod", "NoitaModLog" );

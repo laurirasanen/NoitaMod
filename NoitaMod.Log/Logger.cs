@@ -1,18 +1,11 @@
 ﻿using System;
 using System.IO;
 using NoitaMod.Util;
+using NoitaMod.Common;
 
 namespace NoitaMod.Log
-{
-    public enum LogLevel
-    {
-        Debug,
-        Info,
-        Warn,
-        Error
-    }
-
-    public class Logger : Singleton<Logger>, IDisposable
+{   
+    public class Logger : Singleton<Logger>, ILogger, IDisposable
     {
         static string defaultLogPath = "noitamod.log";
         string logPath = defaultLogPath;
