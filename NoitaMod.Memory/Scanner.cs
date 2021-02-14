@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using NoitaMod.Log;
+using NoitaMod.Util;
 
 namespace NoitaMod.Memory
 {
@@ -21,22 +22,8 @@ namespace NoitaMod.Memory
     // Find Patterns (Individual):
     //   var offset = Sigscan.FindPattern("48 8D 0D ? ? ? ? E8 ? ? ? ? E8 ? ? ? ? 48 8B D6");
 
-    public class Scanner
+    public class Scanner : Singleton<Scanner>
     {
-        static Scanner instance;
-        public static Scanner Instance
-        {
-            get
-            {
-                if ( instance == null )
-                {
-                    instance = new Scanner();
-                }
-
-                return instance;
-            }
-        }
-
         private byte[] moduleBuffer;
         private ulong moduleBase;
         private Dictionary<string, string> stringPatterns;
@@ -44,7 +31,7 @@ namespace NoitaMod.Memory
 
         public void Init( string moduleName )
         {
-            Logger.Instance.WriteLine( "NoitaMod.Scanner.Init()" );
+            Logger.Instance.WriteLine( "NoitaMod.Memory.Scanner.Init()" );
             stringPatterns = new Dictionary<string, string>();
 
             ProcessModuleCollection modules = Operations.GetProcessModules();

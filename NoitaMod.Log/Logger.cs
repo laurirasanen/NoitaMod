@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using NoitaMod.Util;
 
 namespace NoitaMod.Log
 {
@@ -11,22 +12,8 @@ namespace NoitaMod.Log
         Error
     }
 
-    public class Logger : IDisposable
+    public class Logger : Singleton<Logger>, IDisposable
     {
-        static Logger instance;
-        public static Logger Instance
-        {
-            get
-            {
-                if ( instance == null )
-                {
-                    instance = new Logger();
-                }
-
-                return instance;
-            }
-        }
-
         static string defaultLogPath = "noitamod.log";
         string logPath = defaultLogPath;
         static string dateFormat = "yyyy-MM-dd HH:mm:ss.ff";

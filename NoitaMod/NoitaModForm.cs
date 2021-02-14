@@ -51,7 +51,7 @@ namespace NoitaMod
 
             isInjecting = true;
 
-            Logger.Instance.WriteLine( "NoitaModForm.injectDLL()" );
+            Logger.Instance.WriteLine( "NoitaMod.NoitaModForm.injectDLL()" );
             var Dlls = new string[][]{
                 //new string[]{ $@"{Directory.GetCurrentDirectory()}\NoitaMod.Log.dll"},
                 //new string[]{ $@"{Directory.GetCurrentDirectory()}\NoitaMod.API.dll"},
@@ -81,7 +81,7 @@ namespace NoitaMod
                             break;
                     }
                 }
-                Logger.Instance.WriteLine( $"NoitaModForm.injectDLL {Dlls[i][0]} {result}" );
+                Logger.Instance.WriteLine( $"NoitaMod.NoitaModForm.injectDLL {Dlls[i][0]} {result}" );
             }
 
             isInjecting = false;
@@ -135,13 +135,13 @@ namespace NoitaMod
         {
             Logger.Instance.SetLogPath( "noitamod-injector.log" );
             Logger.Instance.DeleteLog();
-            Logger.Instance.WriteLine( "NoitaModForm.NoitaModForm()" );
+            Logger.Instance.WriteLine( "NoitaMod.NoitaModForm.NoitaModForm()" );
             InitializeComponent();
         }
 
         private void NoitaModForm_Load( object sender, EventArgs e )
         {
-            Logger.Instance.WriteLine( "NoitaModForm.NoitaModForm_Load()" );
+            Logger.Instance.WriteLine( "NoitaMod.NoitaModForm.NoitaModForm_Load()" );
             InjectionStatus = StatusStrings.UNINJECTED;
             processCheckTimer = new System.Timers.Timer( 2000 );
             processCheckTimer.Elapsed += new ElapsedEventHandler( timer_Tick );

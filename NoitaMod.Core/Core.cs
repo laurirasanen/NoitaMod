@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using NoitaMod.Log;
 using NoitaMod.Memory;
+using NoitaMod.Plugin;
 
 namespace NoitaMod.Core
 {
@@ -34,12 +35,13 @@ namespace NoitaMod.Core
         private static void Init()
         {
             Logger.Instance.DeleteLog();
-            Logger.Instance.WriteLine( "NoitaMod.Core.Init()" );
+            Logger.Instance.WriteLine( "NoitaMod.Core.Core.Init()" );
 
             Process process = Process.GetCurrentProcess();
 
             Handles.Init( process.Handle );
             Scanner.Instance.Init( "noita.exe" );
+            Loader.Instance.Init();
         }
     }
 }

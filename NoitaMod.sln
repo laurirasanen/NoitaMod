@@ -14,6 +14,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaMod.Memory", "NoitaMod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaMod.Log", "NoitaMod.Log\NoitaMod.Log.csproj", "{0D39AA0A-2729-4570-9B4C-0B60D9854AFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaMod.Plugin", "NoitaMod.Plugin\NoitaMod.Plugin.csproj", "{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A} = {53093AE1-9EC0-4811-BBD2-125A51BF852A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaMod.Util", "NoitaMod.Util\NoitaMod.Util.csproj", "{53093AE1-9EC0-4811-BBD2-125A51BF852A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +79,30 @@ Global
 		{0D39AA0A-2729-4570-9B4C-0B60D9854AFA}.Release|x64.Build.0 = Release|x64
 		{0D39AA0A-2729-4570-9B4C-0B60D9854AFA}.Release|x86.ActiveCfg = Release|x86
 		{0D39AA0A-2729-4570-9B4C-0B60D9854AFA}.Release|x86.Build.0 = Release|x86
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|x64.Build.0 = Debug|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Debug|x86.Build.0 = Debug|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Release|x64.ActiveCfg = Release|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Release|x64.Build.0 = Release|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Release|x86.ActiveCfg = Release|Any CPU
+		{FCBBF9BC-204D-4DBB-B9EF-5ADA9399479A}.Release|x86.Build.0 = Release|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|x64.Build.0 = Debug|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Debug|x86.Build.0 = Debug|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|x64.ActiveCfg = Release|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|x64.Build.0 = Release|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|x86.ActiveCfg = Release|Any CPU
+		{53093AE1-9EC0-4811-BBD2-125A51BF852A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
