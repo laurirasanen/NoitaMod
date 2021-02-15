@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NoitaMod.Common
+﻿namespace NoitaMod.Common
 {
     public struct PluginInfo
     {
@@ -15,7 +9,7 @@ namespace NoitaMod.Common
     {
         PluginInfo PluginInfo { get; set; }
 
-        void OnLoad(ILogger logger);
+        void OnLoad( Host host );
 
         void OnUnload();
     }

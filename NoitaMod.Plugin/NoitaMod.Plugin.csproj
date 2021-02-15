@@ -73,6 +73,10 @@
       <Project>{0d39aa0a-2729-4570-9b4c-0b60d9854afa}</Project>
       <Name>NoitaMod.Log</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NoitaMod.Memory\NoitaMod.Memory.csproj">
+      <Project>{7718e8e1-f902-4a04-ae79-9dd052c9f0a6}</Project>
+      <Name>NoitaMod.Memory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NoitaMod.Util\NoitaMod.Util.csproj">
       <Project>{53093ae1-9ec0-4811-bbd2-125a51bf852a}</Project>
       <Name>NoitaMod.Util</Name>

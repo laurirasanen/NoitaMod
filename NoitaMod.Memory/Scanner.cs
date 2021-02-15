@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using NoitaMod.Log;
 using NoitaMod.Util;
+using NoitaMod.Common;
 
 namespace NoitaMod.Memory
 {
@@ -22,7 +23,7 @@ namespace NoitaMod.Memory
     // Find Patterns (Individual):
     //   var offset = Sigscan.FindPattern("48 8D 0D ? ? ? ? E8 ? ? ? ? E8 ? ? ? ? 48 8B D6");
 
-    public class Scanner : Singleton<Scanner>
+    public class Scanner : Singleton<Scanner>, IScanner
     {
         private byte[] moduleBuffer;
         private ulong moduleBase;

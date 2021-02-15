@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using NoitaMod.Log;
 using NoitaMod.Util;
 using NoitaMod.Common;
+using NoitaMod.Memory;
 
 namespace NoitaMod.Plugin
 {
@@ -98,10 +99,16 @@ namespace NoitaMod.Plugin
                 }
             }
 
+            Host host = new Host()
+            {
+                Logger = Logger.Instance,
+                Scanner = Scanner.Instance
+            };
+
             plugins.ForEach( plugin =>
             {
                 Logger.Instance.WriteLine( $"IPlugin.OnLoad(): {plugin.PluginInfo.Name}" );
-                plugin.OnLoad( Logger.Instance );
+                plugin.OnLoad( host );
             } );
 
             if ( plugins.Count == 0 )
